@@ -1,0 +1,215 @@
+#search-bar {
+	display: block;
+	width:100%;
+	height: 50px;
+	padding: 5px;
+	background-color: #616263;
+}
+
+/*.search input[type="text"] {
+  padding: 10px;
+  border: solid 1px #dcdcdc;
+  transition: box-shadow 0.3s, border 0.3s;
+}
+
+input[type="text"] {
+  display: inline-block;
+  margin: 0;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 18px;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+}
+input[type="text"]:focus {
+  outline: none;
+}*/
+
+.search {
+	margin-top: 15px;
+	margin-left: 15px;
+	display: inline-block;
+	float: left;
+	/*text-align: center;*/
+}
+
+/*#map {
+	position: relative;
+	height: 94.5%;
+	z-index: 1;
+}*/
+/* Optional: Makes the sample page fill the window. */
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+#dropdown {
+	display: inline-block;
+	/*text-align: center;*/
+	margin-left: 12px;
+	/*margin-right: auto;*/
+	margin-top: 15px;
+}
+
+body {
+	background-color: black;
+}
+
+.errMsg {
+  width: 200px;
+  margin: 5px auto;
+  text-align: center;
+  color:red;
+  margin:5px 10px;
+  /*font-family: "STARWARS";*/
+  font-size: 150%;
+}
+
+#errContainer {
+  z-index: 9999;	
+  display: block;
+  margin: 5px auto;
+  width: 100%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+}
+
+.hide {display:none;}
+
+
+
+#main {
+	display: flex;
+	/* centering the page */
+	max-width: 1920px;
+	margin: 0 auto;
+	height:94.5%;
+}
+
+#map {
+	/*this makes the element grow and take all the available space not taken by the side bar */
+	flex-grow: 1;
+	height: 100%;
+}
+
+#results-bar {
+	flex-shrink: 0;
+	width: 280px;
+	background-color:#000000;
+	overflow-y: auto;
+}
+
+/*.result {
+	width: 280px;
+	height: 60px;
+	border: 1px white;
+	background-color: black;
+	color: white;
+}*/
+
+.result {
+	font-family: 'Yantramanav', sans-serif;
+	font-size: 14px;
+    margin: 3px, 3px;
+    float: left;
+    width: 272px;
+    height: 60px;
+    /*background: #131313;*/
+    border: 2px solid transparent;
+    color: white;
+    padding: 0px;
+    background: #45484d; /* Old browsers */
+    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #45484d 0%,#000000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+   /* -moz-border-image: -moz-linear-gradient(top, #000000 0%, #7c7c7c 100%);
+    -webkit-border-image: -webkit-linear-gradient(top, #000000 0%, #7c7c7c 100%);
+    border-image: linear-gradient(to bottom, #000000 0%, #7c7c7c 100%);
+    border-image-slice: 1;*/
+}
+
+.numResult {
+	float: left;
+	display: block;
+	width: 27px;
+	height: 20px;
+	/*margin-right:3px;*/
+	background-color: yellow;
+	font-size: 18px;
+	color: black;
+	position: relative;
+	left: 0;
+	bottom: 0;
+	text-align: center;
+	font-weight: bold;
+
+}
+
+/*.textResult {
+	clear: both;
+	display:block;
+	float: left;
+	width: 100px;
+	padding: 3px;
+}*/
+
+a.fillthediv{
+	/*clear: both;*/
+	display:block;
+/*	float:left;
+*/	height:100%;
+	width:100%;
+	text-decoration: none;
+	color:white;
+}
+
+a:hover{color:yellow;}
+
+.fulldivhead {
+	margin-left: 3px;
+	padding-left: 5px;
+	padding-top: 5px;
+}
+
+.fulldivp {
+	padding-left: 5px;
+	/*margin-top: 3px;*/
+	margin-left: 3px;
+
+}
+
+.logo {
+	display: block;
+	float:left;
+}
+
+.processing {
+    display:    none;
+    position:   fixed;
+    z-index:    1000000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .2 ) 
+                url('Preloader_6.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+body.loading {
+    overflow: hidden;   
+}
+
+body.loading .processing {
+    display: block;
+}
+
+
+
