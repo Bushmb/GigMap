@@ -2,62 +2,43 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Band Tracker</title>
-	<link href="https://fonts.googleapis.com/css?family=Yantramanav:100" rel="stylesheet">
+	<title>GigMap</title>
+	<link href="https://fonts.googleapis.com/css?family=Yantramanav:100,400,900" rel="stylesheet">
 	<link rel="stylesheet" href="styles.css"></link>
 </head>
 <body>
-	<!-- <div class="content">
-			<div class="top_block search_bar">
-				<div class="content">
-				</div>
-			</div>
-			<div class="background map">
-			</div>
-			<div class="left_block map">
-				<div class="content">
-				</div>
-			</div>
-			<div class="background results-bar">
-			</div>
-			<div class="right_block results-bar">
-				<div class="content">
-				</div>
-			</div>
-		</div> -->
+	<header>
 	<section id="search-bar">
 		<div class='logo'><img src="gigmap.png" width="150" height="44"></div>
 		<form action="#" class="js-search-form">
 			<div class="search">
+			<span>Type a Band Name :</span>
 			<input type="text" id="bandname" placeholder="Band Name">
-			<button type="submit">Search</form>
+			<button type="submit">Search</button>
 			</div>
 		</form>
-		<div id="dropdown"></div>
+		<div id="yearSelector">
+			<span>Tour Year :</span>
+			<select id="yearChoice">
+				<option value=2016>2016</option>
+			</select>
+		</div>
+		<div id="dropdown">		
+		</div>
 	</section>
-	<div id="errContainer">
-		<span class="errMsg hide"><strong>There are no items matching that search</strong></span>
-	</div>
-	<div class="processing"><!-- Place at bottom of page --></div>
+	<section id="messages">		
+		<div class="errMsg hide"><strong>There are no items matching that search</strong></div>
+		<div class="noInput hide"><strong>PLEASE ENTER A BAND NAME FIRST</strong></div>		
+		<div class="showChoice"></div>
+	</section>
+	</header>
 	<section id="main">
-		<div id="map"></div>
-		<aside id="results-bar"> 
-			<!-- <h2>Results</h2> -->
-			<!-- <div class="result">
-				<div>Concert Name</div>
-				<div>Concert Date</div>
-				<div>Concert Info......</div>
-			</div>
-			<div class="result">
-				<div>Concert Name</div>
-				<div>Concert Date</div>
-				<div>Concert Info......</div>
-			</div> -->
-		</aside>
+ 		<div id="map"></div>
+		<aside id="results-bar"> </aside>
 	</section>
+	<div class="processing"><!-- Place at bottom of page --></div>
 	<script async defer
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDd2YiG5SZRDx96i1rzeX-VSUUYbBvu0Lg&callback=initMap">
-	// &callback=initMap
 	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	

@@ -5,6 +5,7 @@ var pageCount = 1;
 var totalList = [];
 var eventList;
 var lastClicked = 0;
+var searchTerm;
 
 function initMap(locations) {
 
@@ -202,6 +203,7 @@ function initMap(locations) {
 	map = new google.maps.Map(document.getElementById('map'), {
 	  zoom: 5,
 	  center: {lat: 39.0119, lng: -98.4842},
+	  disableDefaultUI: true,
 	  mapTypeControlOptions: {
 	              mapTypeIds: ['styled_map']
 	            }
@@ -246,19 +248,13 @@ function setMarkers(locations, eventDate, eventName) {
 			    animation: google.maps.Animation.DROP
 			  }));
 
-
 			  markers[i].addListener('click', function() {
 			  	map.setZoom(5);
 			  	map.setCenter(markers[i].getPosition());
 	            markers[i].setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
 	            markers[lastClicked].setIcon('https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+(lastClicked+1)+'|5e769b|000000')
 	            markers[i].setIcon('https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+(i+1)+'|ff0f0f|000000')
-	            // markers[lastClicked].setAnimation(null);
-	            // markers[i].setAnimation(google.maps.Animation.BOUNCE);
-	            // setTimeout(function () {
-	            //     markers[i].setAnimation(null);
-	            // }, 1500); // current maps duration of one bounce (v3.13)
-	            
+	         
 	          });
 
 			  count++;
@@ -276,6 +272,7 @@ function setMarkers(locations, eventDate, eventName) {
 		});
 
 		tour.setMap(map);
+
 						
 	pageCount = 1;
 
@@ -308,45 +305,65 @@ function getArtistIdFromApi(searchTerm) {
 	$.getJSON(url + "&jsoncallback=?", function(data){
 		var artistList = data.resultsPage.results.artist;
 
-		// sets up the drop down list based on results form artist name search
+		// sets up the drop down list based on results form artist name search '<span>Bands matching your search</span></br>'
 
-		var create = '<select id="artistSelection">';
-		    for(var i = 0; i < artistList.length;i++)
-		    {
-		        create += '<option value="'+artistList[i].id+'">'+artistList[i].displayName+'</option>';
+		var create = `'<select id="artistSelection">
+						 <option>Closest Matches</option>
+						 	<option value="${artistList[0].id}">${artistList[0].displayName}</option>`
+
+
+		    for(var i = 1; i < artistList.length;i++) {
+		    
+		    	var displayName = artistList[i].displayName;
+		    	if (displayName.length > 45) {
+		    		displayName = displayName.substring(0, 42);
+		    		displayName += "..."
+		    	}
+		        create += '<option value="'+artistList[i].id+'">'+displayName+'</option>';
 		    }
 		    create += '</select>';
-		    jQuery('#dropdown').append(create);
+
+		    $('#dropdown').append(create);
    		
    		//gets event history from top returned value
 
-		getEventHistoryFromApi(artistList[0].id);
+		var year = $('#yearChoice').val();
+
+		getEventHistoryFromApi(artistList[0].id, year);
+
+		$('#bandname').val('');
 		
 	});
 }
 
-function getEventHistoryFromApi(artistId) {
+function getEventHistoryFromApi(artistId, year) {
 	
 	var myApiKey = "ofqFcyXEVBW3U9se";
-	var url = "https://api.songkick.com/api/3.0/artists/" + artistId + "/gigography.json?apikey=" + myApiKey + "&min_date=2012-01-01&max_date=2016-12-31";
+	$(".showChoice").html("");
+
+	var url = "https://api.songkick.com/api/3.0/artists/" + artistId + "/gigography.json?apikey=" + myApiKey + "&min_date=" + year + "-01-01&max_date=" + year + "-12-31";
 	
 	$.getJSON(url + "&page=" + pageCount + "&jsoncallback=?", function(data){
 		var eventList = data.resultsPage.results.event;
 		
 		if (eventList == undefined){
 			if(totalList.length >= 1){
+				$('.showChoice').removeClass("hide");
 				reduceMyData(totalList);
 			}
 			else {
-				$('.errMsg').show().fadeOut(1200);     
+				$('.showChoice').addClass("hide");
+				$('.errMsg').show().fadeOut(2000);
+				     
 				return false;
+
 			}
 		}
 
 		else {
 			pageCount++;
 			totalList = totalList.concat(eventList);
-			getEventHistoryFromApi(artistId);
+			getEventHistoryFromApi(artistId, year);
 		}
 	});	
 }
@@ -401,17 +418,23 @@ function populateResults(eventName, eventDate){
 	for(i=0; i < eventName.length; i++){
 		toAppend += "<div class='result' data-id="+ i +"><a href='#' class='fillthediv'>" +
 					"<div class='numResult'>"+(i+1)+"</div>" +
-					// "<div class='textResult'>" + 
-					"<span class='fulldivhead'>" + eventName[i] + "</span>" +
-					"<br/>" +
-					"<span class='fulldivp'>" + eventDate[i] + "</span>" +
-					// "</div>" +
+					"<div class='fulldivhead'>" + eventName[i] + "</div>" +
+					"<div class='fulldivp'>" + eventDate[i] + "</div>" +
 					"</a></div>"
 
-
-		// toAppend += "<div class='result'>" + eventName[i] + "</div>" + "<button data-id="+ i +">button"+(i+1)+"</button>";
 	}
 	$('#results-bar').append(toAppend);
+}
+function populateYearSelector() {
+
+	var create = '';
+    var year = 2015;
+	for(i = 0; i < 46; i++) {
+		create += '<option value=' + year + '>' + year + '</option>';
+		year--;
+	}
+	$('#yearChoice').append(create);
+
 }
 
 
@@ -419,21 +442,47 @@ function watchSubmit() {
 
 	$('.js-search-form').submit(function(e) {
 		e.preventDefault();
-		$("#bandname").blur(); 
-		$('#dropdown').html("");
-		// $('#results-bar').show();
-		var searchTerm = $('#bandname').val();
-		clearMarkers();
-		getArtistIdFromApi(searchTerm);	
+
+		if( $("#bandname").val().length === 0 ) {
+			$('.noInput').show().fadeOut(2000);     
+			return false;
+		}
+		else {
+			$("#bandname").blur(); 
+			$('#dropdown').html("");
+			searchTerm = $('#bandname').val();
+			clearMarkers();
+			getArtistIdFromApi(searchTerm);
+			$('.showChoice').html(searchTerm.toUpperCase() + " - " + $('#yearChoice').val());	
+		}
 	});
  }
+
+function watchYearSeletion() {
+
+	$("#yearSelector").on('change', "#yearChoice", function(){
+	    clearMarkers();
+	    pageCount = 1;
+	    var yearSelected = this.value;
+	    var artist = $('#artistSelection').val();
+	    var year = $('#yearChoice').val();
+	    searchTerm = $("#artistSelection option:selected").html().toUpperCase();
+	    $(".showChoice").html(searchTerm + " - " + year);
+	    getEventHistoryFromApi(artist, yearSelected);
+
+	 });  
+
+}
 
 function watchArtistSelection() {
 
 	$("#search-bar").on('change',"#artistSelection", function(){
-	    clearMarkers();
+	    clearMarkers();  
 	    pageCount = 1;
-	    getEventHistoryFromApi(this.value);
+	    var year = $('#yearChoice').val();
+	    searchTerm = $("#artistSelection option:selected").html().toUpperCase();
+	    $(".showChoice").html(searchTerm + " - " + year);
+	   	getEventHistoryFromApi(this.value, year);
 	});  
 }
 
@@ -448,7 +497,9 @@ function selectPin() {
 
  $(document).ready(function() {
 
+ 	populateYearSelector();
  	watchSubmit();
+ 	watchYearSeletion();
  	watchArtistSelection();
  	selectPin();
 
