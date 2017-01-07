@@ -339,7 +339,7 @@ function getArtistIdFromApi(searchTerm) {
 function getEventHistoryFromApi(artistId, year) {
 	
 	var myApiKey = "ofqFcyXEVBW3U9se";
-	$(".showChoice").html("");
+	
 
 	var url = "https://api.songkick.com/api/3.0/artists/" + artistId + "/gigography.json?apikey=" + myApiKey + "&min_date=" + year + "-01-01&max_date=" + year + "-12-31";
 	
