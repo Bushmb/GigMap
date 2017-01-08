@@ -308,8 +308,7 @@ function getArtistIdFromApi(searchTerm) {
 		// sets up the drop down list based on results form artist name search '<span>Bands matching your search</span></br>'
 
 		var create = `'<select id="artistSelection">
-						 <option>Closest Matches</option>
-						 	<option value="${artistList[0].id}">${artistList[0].displayName}</option>`
+						 <option value="${artistList[0].id}">${artistList[0].displayName}</option>`
 
 
 		    for(var i = 1; i < artistList.length;i++) {
