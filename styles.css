@@ -18,7 +18,7 @@ span {
 	font-family: 'Yantramanav', sans-serif;
 	font-weight: 400;
 	font-size: 20px;
-	color: black;
+	color: #EAEAEA;
 }
 
 #search-bar {
@@ -32,9 +32,7 @@ span {
 
 #messages {
 
-	background-color: rgba(42,42,42,1);
 	z-index: 30;
-	
 }
 
 #yearSelector {
@@ -63,15 +61,15 @@ span {
   font-family: 'Yantramanav', sans-serif;
   font-weight: 100;
   margin-left: 10px;
-  margin-top: -3px;
+  margin-top: -1px;
   text-align: left;
-  color:red;
+  color: red;
   font-size: 125%;
 }
 
 #errContainer {
   z-index: 50;	
-  display: block;
+  display: inline-block;
   margin: 5px auto;
   width: 100%;
   text-align: center;
@@ -103,7 +101,8 @@ span {
 }
 
 #results-bar {
-
+	-webkit-backdrop-filter: blur(20px);
+	backdrop-filter: blur(20px);
 	position: absolute;
 	display: inline-block;
 	top: 0px;
@@ -117,8 +116,10 @@ span {
 }
 
 .result {
+	-webkit-backdrop-filter: blur(20px);
+	backdrop-filter: blur(20px);
 	font-family: 'Yantramanav', sans-serif;
-	font-size: 14px;
+	font-size: 16px;
     margin: 3px, 3px;
     float: left;
     width: 272px;
@@ -127,18 +128,17 @@ span {
     border: 2px solid transparent;
     color: white;
     padding: 0px;
-    background: #45484d; /* Old browsers */
-    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, #45484d 0%,#000000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: rgba(30,30,30,0.65);
+    /*#111111;*/
    
+   /*#333333*/
 }
 
 .numResult {
 	float: left;
 	width: 27px;
 	height: 100%;
-	background-color: yellow;
+	background-color: #3AE8C9;
 	font-size: 18px;
 	color: black;
 	position: relative;
@@ -158,7 +158,7 @@ a.fillthediv{
 	color:white;
 }
 
-a:hover{color:yellow;}
+a:hover{color:#4EBBE2;}
 
 .fulldivhead {
 	margin-left: 25px;

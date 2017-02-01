@@ -10,192 +10,7 @@ var searchTerm;
 function initMap(locations) {
 
 	var styledMapType = new google.maps.StyledMapType(
-	[
-	  {
-	    "elementType": "geometry",
-	    "stylers": [
-	      {
-	        "color": "#212121"
-	      }
-	    ]
-	  },
-	  {
-	    "elementType": "labels.icon",
-	    "stylers": [
-	      {
-	        "visibility": "on"
-	      }
-	    ]
-	  },
-	  {
-	    "elementType": "labels.text.fill",
-	    "stylers": [
-	      {
-	        "color": "#757575"
-	      }
-	    ]
-	  },
-	  {
-	    "elementType": "labels.text.stroke",
-	    "stylers": [
-	      {
-	        "color": "#212121"
-	      }
-	    ]
-	  },
-	  {
-	    "featureType": "administrative",
-	    "elementType": "geometry",
-	    "stylers": [
-	      {
-	        "color": "#757575"
-	      }
-	    ]
-	  },
-	  {
-	    "featureType": "administrative.country",
-	    "elementType": "labels.text.fill",
-	    "stylers": [
-	      {
-	        "color": "#9e9e9e"
-	      }
-	    ]
-	  },
-	  {
-	    "featureType": "administrative.locality",
-	    "elementType": "labels.text.fill",
-	    "stylers": [
-	      {
-	        "color": "#bdbdbd"
-	      }
-	    ]
-	  },
-	  {
-	    "featureType": "poi",
-	    "elementType": "labels.text.fill",
-	    "stylers": [
-	      {
-	        "color": "#757575"
-	      }
-	    ]
-	  },
-	  {
-	    "featureType": "poi.park",
-	    "elementType": "geometry",
-	    "stylers": [
-	      {
-	        "color": "#181818"
-	      }
-	    ]
-	  },
-	  {
-	    "featureType": "poi.park",
-	    "elementType": "labels.text.fill",
-	    "stylers": [
-	      {
-	        "color": "#616161"
-	      }
-	    ]
-	  },
-	  {
-	    "featureType": "poi.park",
-	    "elementType": "labels.text.stroke",
-	    "stylers": [
-	      {
-	        "color": "#1b1b1b"
-	      }
-	    ]
-	  },
-	  {
-	    "featureType": "road",
-	    "stylers": [
-	      {
-	        "visibility": "off"
-	      }
-	    ]
-	  },
-	  {
-	    "featureType": "road",
-	    "elementType": "geometry.fill",
-	    "stylers": [
-	      {
-	        "color": "#2c2c2c"
-	      }
-	    ]
-	  },
-	  {
-	    "featureType": "road",
-	    "elementType": "labels.text.fill",
-	    "stylers": [
-	      {
-	        "color": "#8a8a8a"
-	      }
-	    ]
-	  },
-	  {
-	    "featureType": "road.arterial",
-	    "elementType": "geometry",
-	    "stylers": [
-	      {
-	        "color": "#373737"
-	      }
-	    ]
-	  },
-	  {
-	    "featureType": "road.highway",
-	    "elementType": "geometry",
-	    "stylers": [
-	      {
-	        "color": "#3c3c3c"
-	      }
-	    ]
-	  },
-	  {
-	    "featureType": "road.highway.controlled_access",
-	    "elementType": "geometry",
-	    "stylers": [
-	      {
-	        "color": "#4e4e4e"
-	      }
-	    ]
-	  },
-	  {
-	    "featureType": "road.local",
-	    "elementType": "labels.text.fill",
-	    "stylers": [
-	      {
-	        "color": "#616161"
-	      }
-	    ]
-	  },
-	  {
-	    "featureType": "transit",
-	    "elementType": "labels.text.fill",
-	    "stylers": [
-	      {
-	        "color": "#757575"
-	      }
-	    ]
-	  },
-	  {
-	    "featureType": "water",
-	    "elementType": "geometry",
-	    "stylers": [
-	      {
-	        "color": "#000000"
-	      }
-	    ]
-	  },
-	  {
-	    "featureType": "water",
-	    "elementType": "labels.text.fill",
-	    "stylers": [
-	      {
-	        "color": "#3d3d3d"
-	      }
-	    ]
-	  }
-	],
+	[{"stylers":[{"hue":"#ff1a00"},{"invert_lightness":true},{"saturation":-100},{"lightness":33},{"gamma":0.5}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#2D333C"}]}],
 	{name: 'Styled Map'});
 
 	//initializing map and default settings
@@ -243,7 +58,8 @@ function setMarkers(locations, eventDate, eventName) {
 			    position: location,
 			    map: map,
 			    id: count,
-			    icon: 'https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+count+'|5e769b|000000',
+			    icon: 'https://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld='+count+'|3AE8C9|000000',
+			    // icon: 'https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+count+'|3AE8C9|000000',
 			    title: eventName[i] + " "+ eventDate[i],
 			    animation: google.maps.Animation.DROP
 			  }));
@@ -252,8 +68,8 @@ function setMarkers(locations, eventDate, eventName) {
 			  	map.setZoom(5);
 			  	map.setCenter(markers[i].getPosition());
 	            markers[i].setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
-	            markers[lastClicked].setIcon('https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+(lastClicked+1)+'|5e769b|000000')
-	            markers[i].setIcon('https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+(i+1)+'|ff0f0f|000000')
+	            markers[lastClicked].setIcon('https://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld='+(lastClicked+1)+'|3AE8C9|000000')
+	            markers[i].setIcon('https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+(i+1)+'|B200A6|000000')
 	         
 	          });
 
@@ -261,13 +77,12 @@ function setMarkers(locations, eventDate, eventName) {
 			}, i * 50);
 		})
 
-		// setting polyline on map based on locations array
-		
+
 		tour = new google.maps.Polyline({
 		  path: locations,
 		  geodesic: true,
-		  strokeColor: 'yellow',
-		  strokeOpacity: 0.5,
+		  strokeColor: '#B200A6',
+		  strokeOpacity: 0.75,
 		  strokeWeight: 2
 		});
 
@@ -339,7 +154,6 @@ function getEventHistoryFromApi(artistId, year) {
 	
 	var myApiKey = "ofqFcyXEVBW3U9se";
 	
-
 	var url = "https://api.songkick.com/api/3.0/artists/" + artistId + "/gigography.json?apikey=" + myApiKey + "&min_date=" + year + "-01-01&max_date=" + year + "-12-31";
 	
 	$.getJSON(url + "&page=" + pageCount + "&jsoncallback=?", function(data){
@@ -382,6 +196,14 @@ function reduceMyData(totalList){
 		return eventArr;
 	}, []);
 
+	var eventCity = totalList.reduce(function(eventArr, event){
+		if(event) {
+			eventArr.push(event.location.city);
+			console.log(event.location.city);
+		}
+		return eventArr;
+	}, []);
+
 	var eventDate = totalList.reduce(function(eventArr, event){
 		if(event) {
 			eventArr.push(event.start.date);	
@@ -407,22 +229,23 @@ function reduceMyData(totalList){
 			
 	}, []);
 	
-	populateResults(eventName, eventDate);
+	populateResults(eventCity, eventDate);
 	setMarkers(locations, eventDate, eventName);
 }
 
-function populateResults(eventName, eventDate){
+function populateResults(eventCity, eventDate){
 	
 	var toAppend = ''
-	for(i=0; i < eventName.length; i++){
+	for(i=0; i < eventCity.length; i++){
 		toAppend += "<div class='result' data-id="+ i +"><a href='#' class='fillthediv'>" +
 					"<div class='numResult'>"+(i+1)+"</div>" +
-					"<div class='fulldivhead'>" + eventName[i] + "</div>" +
+					"<div class='fulldivhead'>" + eventCity[i] + "</div>" +
 					"<div class='fulldivp'>" + eventDate[i] + "</div>" +
 					"</a></div>"
 
 	}
 	$('#results-bar').append(toAppend);
+	$('#showChoice').append(" " + eventCity.length + " shows played");
 }
 function populateYearSelector() {
 
